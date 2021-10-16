@@ -104,6 +104,11 @@ namespace Nuke.Components
                 .AddLoggers("TeamCity")
                 // https://github.com/xunit/visualstudio.xunit/pull/108
                 .AddRunSetting("RunConfiguration.NoAutoReporters", bool.TrueString))
+            // https://github.com/JetBrains/TeamCity.VSTest.TestAdapter
+            .When(TeamCity.Instance is not null && v.HasPackageReference("TeamCity.VSTest.TestAdapter"), _ => _
+                .AddLoggers("TeamCity")
+                // https://github.com/xunit/visualstudio.xunit/pull/108
+                .AddRunSetting("RunConfiguration.NoAutoReporters", bool.TrueString))
             .AddLoggers($"trx;LogFileName={v.Name}.trx")
             .When(InvokedTargets.Contains((this as IReportCoverage)?.ReportCoverage) || IsServerBuild, _ => _
                 .SetCoverletOutput(TestResultDirectory / $"{v.Name}.xml"));
