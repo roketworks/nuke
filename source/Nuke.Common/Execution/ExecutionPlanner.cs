@@ -9,6 +9,7 @@ using JetBrains.Annotations;
 using NuGet.Packaging;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
+using Nuke.Common.ValueInjection;
 using Serilog;
 
 namespace Nuke.Common.Execution
@@ -64,7 +65,7 @@ namespace Nuke.Common.Execution
             while (graphAsList.Any())
             {
                 var independents = graphAsList.Where(x => !graphAsList.Any(y => y.Dependencies.Contains(x))).ToList();
-                if (EnvironmentInfo.GetNamedArgument<bool>("strict") && independents.Count > 1)
+                if (ParameterService.GetNamedArgument<bool>("strict") && independents.Count > 1)
                 {
                     // TODO: logging additional
                     Log.Error("Incomplete target definition order:"

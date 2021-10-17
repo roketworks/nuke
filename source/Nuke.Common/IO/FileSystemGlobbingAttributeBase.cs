@@ -9,6 +9,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
+using Nuke.Common.ValueInjection;
 
 namespace Nuke.Common.IO
 {
@@ -55,7 +56,7 @@ namespace Nuke.Common.IO
 
             var globbedElements = GetGlobbedElements(member);
 
-            var parameterValue = EnvironmentInfo.GetParameter<AbsolutePath[]>(member);
+            var parameterValue = ParameterService.GetParameter<AbsolutePath[]>(member);
             if (parameterValue != null)
             {
                 parameterValue.ForEach(x =>

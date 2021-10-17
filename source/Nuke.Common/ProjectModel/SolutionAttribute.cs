@@ -9,6 +9,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Nuke.Common.IO;
 using Nuke.Common.Utilities;
+using Nuke.Common.ValueInjection;
 
 namespace Nuke.Common.ProjectModel
 {
@@ -62,7 +63,7 @@ namespace Nuke.Common.ProjectModel
         {
             return _relativePath != null
                 ? PathConstruction.Combine(NukeBuild.RootDirectory, _relativePath)
-                : EnvironmentInfo.GetParameter<AbsolutePath>(member).NotNull($"No solution file defined for '{member.Name}'.");
+                : ParameterService.GetParameter<AbsolutePath>(member).NotNull($"No solution file defined for '{member.Name}'.");
         }
 
         private string TryGetSolutionFileFromNukeFile()

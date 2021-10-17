@@ -25,7 +25,7 @@ namespace Nuke.Common.Execution
                 SchemaUtility.WriteDefaultParametersFile();
             }
 
-            if (EnvironmentInfo.GetParameter<bool>(CompletionParameterName))
+            if (ParameterService.GetParameter<bool>(CompletionParameterName))
                 Environment.Exit(exitCode: 0);
         }
 

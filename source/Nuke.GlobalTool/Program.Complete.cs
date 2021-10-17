@@ -11,6 +11,7 @@ using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.Utilities;
+using Nuke.Common.ValueInjection;
 using static Nuke.Common.Constants;
 
 namespace Nuke.GlobalTool
@@ -39,7 +40,7 @@ namespace Nuke.GlobalTool
                 return 1;
             }
 
-            var position = EnvironmentInfo.GetParameter<int?>("position");
+            var position = ParameterService.GetParameter<int?>("position");
             var completionItems = IsLegacy(rootDirectory)
                 ? SerializationTasks.YamlDeserializeFromFile<Dictionary<string, string[]>>(completionFile)
                 : SchemaUtility.GetCompletionItems(buildSchemaFile, GetProfileNames(rootDirectory));

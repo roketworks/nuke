@@ -11,6 +11,7 @@ using Nuke.Common.CI;
 using Nuke.Common.IO;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
+using Nuke.Common.ValueInjection;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -60,7 +61,7 @@ namespace Nuke.Common.Execution
 
         private static void DeleteOldLogFiles()
         {
-            var configurationId = EnvironmentInfo.GetParameter<string>(BuildServerConfigurationGenerationAttributeBase.ConfigurationParameterName);
+            var configurationId = ParameterService.GetParameter<string>(BuildServerConfigurationGenerationAttributeBase.ConfigurationParameterName);
             if (configurationId != null)
                 return;
 

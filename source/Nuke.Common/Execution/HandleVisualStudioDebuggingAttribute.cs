@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using JetBrains.Annotations;
+using Nuke.Common.ValueInjection;
 
 namespace Nuke.Common.Execution
 {
@@ -21,7 +22,7 @@ namespace Nuke.Common.Execution
             NukeBuild build,
             IReadOnlyCollection<ExecutableTarget> executableTargets)
         {
-            if (!EnvironmentInfo.GetParameter<bool>(Constants.VisualStudioDebugParameterName))
+            if (!ParameterService.GetParameter<bool>(Constants.VisualStudioDebugParameterName))
                 return;
 
             File.WriteAllText(Constants.GetVisualStudioDebugFile(NukeBuild.RootDirectory),

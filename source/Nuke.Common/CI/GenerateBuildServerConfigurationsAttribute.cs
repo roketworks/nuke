@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Nuke.Common.Execution;
 using Nuke.Common.Utilities.Collections;
+using Nuke.Common.ValueInjection;
 
 namespace Nuke.Common.CI
 {
@@ -15,7 +16,7 @@ namespace Nuke.Common.CI
     {
         public void OnBuildCreated(NukeBuild build, IReadOnlyCollection<ExecutableTarget> executableTargets)
         {
-            var configurationId = EnvironmentInfo.GetParameter<string>(ConfigurationParameterName);
+            var configurationId = ParameterService.GetParameter<string>(ConfigurationParameterName);
             if (configurationId == null)
                 return;
 

@@ -17,7 +17,7 @@ namespace Nuke.Common.Execution
     [PublicAPI]
     public class ArgumentsFromGitCommitMessageAttribute : BuildExtensionAttributeBase, IOnBuildCreated
     {
-        private bool GenerationMode { get; } = EnvironmentInfo.GetParameter<string>(ConfigurationParameterName) != null;
+        private bool GenerationMode { get; } = ParameterService.GetParameter<string>(ConfigurationParameterName) != null;
 
         public string Prefix { get; set; } = "[nuke++]";
 

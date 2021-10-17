@@ -16,7 +16,7 @@ using static Nuke.Common.Utilities.ReflectionUtility;
 
 namespace Nuke.Common.ValueInjection
 {
-    internal class ParameterService
+    internal partial class ParameterService
     {
         internal ParameterService ArgumentsFromFilesService;
         internal ParameterService ArgumentsFromCommitMessageService;
