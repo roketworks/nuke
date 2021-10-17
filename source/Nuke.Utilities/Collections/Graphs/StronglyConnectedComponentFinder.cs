@@ -8,7 +8,8 @@ using System.Linq;
 
 namespace Nuke.Common.Utilities
 {
-    internal class StronglyConnectedComponentFinder<T>
+    // Taken from: https://github.com/danielrbradley/CycleDetection
+    public class StronglyConnectedComponentFinder<T>
     {
         private StronglyConnectedComponentList<T> _stronglyConnectedComponents;
         private Stack<Vertex<T>> _stack;

@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Nuke.Utilities\Nuke.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Glob" Version="1.1.8" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.18.0" />
@@ -21,7 +25,6 @@
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.9.0" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.9.0" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NuGet.Packaging" Version="5.11.0" />
     <PackageReference Include="Octokit" Version="0.50.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />

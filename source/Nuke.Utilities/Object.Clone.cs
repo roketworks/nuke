@@ -14,7 +14,7 @@ namespace Nuke.Common.Utilities
     [PublicAPI]
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
-    public static class ObjectExtensions
+    public static partial class ObjectExtensions
     {
         public static T Clone<T>(this T obj)
         {

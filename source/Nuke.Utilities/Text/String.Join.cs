@@ -102,14 +102,9 @@ namespace Nuke.Common.Utilities
         }
 
         [Pure]
-        public static string JoinNewLine(this IEnumerable<string> values, PlatformFamily? platformFamily = null)
+        public static string JoinNewLine(this IEnumerable<string> values)
         {
-            var newLine = !platformFamily.HasValue
-                ? Environment.NewLine
-                : platformFamily.Value == PlatformFamily.Windows
-                    ? "\r\n"
-                    : "\n";
-            return values.Join(newLine);
+            return values.Join(Environment.NewLine);
         }
     }
 }

@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace Nuke.Common.Utilities.Collections
+namespace Nuke.Common.Utilities
 {
-    public static partial class EnumerableExtensions
+    partial class ObjectExtensions
     {
         public static IEnumerable<T> DescendantsAndSelf<T>(
             this T obj,

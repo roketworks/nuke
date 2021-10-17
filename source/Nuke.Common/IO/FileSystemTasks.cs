@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using JetBrains.Annotations;
+using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
 using Serilog;
 

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
-using Nuke.Common.Utilities.Collections;
+using Nuke.Common.Utilities;
 
 namespace Nuke.SourceGenerators
 {

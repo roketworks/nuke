@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Nuke.Common.Utilities.Collections;
 
-namespace Nuke.Common.Utilities.Collections
+namespace Nuke.Common.Utilities
 {
-    partial class EnumerableExtensions
+    partial class ObjectExtensions
     {
         public static IReadOnlyDictionary<TKey, TValue> ToPropertyDictionary<T, TKey, TValue>(
             this T obj,

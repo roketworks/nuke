@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Nuke.Common.Utilities
 {
-    internal class StronglyConnectedComponentList<T> : IEnumerable<StronglyConnectedComponent<T>>
+    public class StronglyConnectedComponentList<T> : IEnumerable<StronglyConnectedComponent<T>>
     {
         private readonly LinkedList<StronglyConnectedComponent<T>> _collection;
 

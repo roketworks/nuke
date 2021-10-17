@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nuke.Common.Utilities
 {
-    internal static partial class ObjectExtensions
+    public static partial class ObjectExtensions
     {
         public static T When<T>(this T obj, bool condition, Func<T, T> action)
         {
