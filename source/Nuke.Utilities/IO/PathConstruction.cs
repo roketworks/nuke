@@ -43,7 +43,7 @@ namespace Nuke.Common.IO
     [PublicAPI]
     public static class PathConstruction
     {
-        internal static GlobbingCaseSensitivity GlobbingCaseSensitivity;
+        public static GlobbingCaseSensitivity GlobbingCaseSensitivity;
 
         private static GlobOptions GlobOptions
             => GlobbingCaseSensitivity switch

@@ -26,7 +26,7 @@ partial class Build
     {
         public void OnBuildCreated(NukeBuild build, IReadOnlyCollection<ExecutableTarget> executableTargets)
         {
-            var accessToken = EnvironmentInfo.GetParameter<string>(nameof(EnterpriseAccessToken));
+            var accessToken = EnvironmentInfo.GetVariable<string>(nameof(EnterpriseAccessToken));
             var enterpriseDirectory = ((Build) build).ExternalRepositoriesDirectory / "enterprise";
             if (accessToken.IsNullOrEmpty())
             {
