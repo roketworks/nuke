@@ -5,23 +5,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Microsoft.Build.Evaluation;
 using Microsoft.Build.Locator;
-using Nuke.Common.Utilities;
-using Nuke.Common.Utilities.Collections;
-using Serilog;
+namespace System.Runtime.CompilerServices
+{
+}
 
 namespace Nuke.Common.ProjectModel
 {
     [PublicAPI]
     public static class ProjectModelTasks
     {
-        static ProjectModelTasks()
-        {
-            Initialize();
-        }
-
+        [ModuleInitializer]
         // https://docs.microsoft.com/en-us/visualstudio/msbuild/updating-an-existing-application?view=vs-2019#use-microsoftbuildlocator
         public static void Initialize()
         {
@@ -42,55 +39,6 @@ namespace Nuke.Common.ProjectModel
             Environment.SetEnvironmentVariable("MSBuildExtensionsPath", msbuildExtensionPath);
             Environment.SetEnvironmentVariable("MSBUILD_EXE_PATH", msbuildExePath);
             Environment.SetEnvironmentVariable("MSBuildSDKsPath", msbuildSdkPath);
-        }
-
-        public static Solution CreateSolution(string fileName = null, params Solution[] solutions)
-        {
-            return CreateSolution(fileName, solutions, folderNameProvider: null);
-        }
-
-        public static Solution CreateSolution(
-            string fileName = null,
-            IEnumerable<Solution> solutions = null,
-            Func<Solution, string> folderNameProvider = null,
-            bool randomizeProjectIds = true)
-        {
-            Assert.True(folderNameProvider != null || solutions != null);
-
-            var solution = SolutionSerializer.DeserializeFromContent<Solution>(
-                new[]
-                {
-                    "Microsoft Visual Studio Solution File, Format Version 12.00",
-                    "# Visual Studio 15",
-                    "VisualStudioVersion = 15.0.26124.0",
-                    "MinimumVisualStudioVersion = 15.0.26124.0"
-                },
-                fileName);
-
-            solution.Configurations = new Dictionary<string, string>
-                                      {
-                                          { "Debug|Any CPU", "Debug|Any CPU" },
-                                          { "Release|Any CPU", "Release|Any CPU" }
-                                      };
-
-            solutions?.ForEach(x =>
-            {
-                var folder = folderNameProvider != null && folderNameProvider(x) is { } folderName
-                    ? solution.AddSolutionFolder(folderName)
-                    : null;
-
-                solution.AddSolution(x, folder);
-
-                if (randomizeProjectIds)
-                    solution.RandomizeProjectIds();
-            });
-
-            return solution;
-        }
-
-        public static Solution ParseSolution(string solutionFile)
-        {
-            return SolutionSerializer.DeserializeFromFile<Solution>(solutionFile);
         }
 
         public static Microsoft.Build.Evaluation.Project ParseProject(
@@ -118,8 +66,9 @@ namespace Nuke.Common.ProjectModel
                 projectCollection.UnloadProject(msbuildProject);
                 targetFramework = targetFrameworks.First();
 
-                Log.Warning("Project {Project} has multiple target frameworks {TargetFrameworks}", projectFile, targetFrameworks.JoinCommaSpace());
-                Log.Warning("Evaluating using {TargetFramework} ...", targetFramework);
+                // TODO: logging
+                // Log.Warning("Project {Project} has multiple target frameworks {TargetFrameworks}", projectFile, targetFrameworks.JoinCommaSpace());
+                // Log.Warning("Evaluating using {TargetFramework} ...", targetFramework);
 
                 msbuildProject = new Microsoft.Build.Evaluation.Project(
                     projectFile,

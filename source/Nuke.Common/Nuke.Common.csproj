@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Nuke.ProjectModel\Nuke.ProjectModel.csproj" />
+    <ProjectReference Include="..\Nuke.SolutionModel\Nuke.SolutionModel.csproj" />
     <ProjectReference Include="..\Nuke.Utilities\Nuke.Utilities.csproj" />
   </ItemGroup>
 

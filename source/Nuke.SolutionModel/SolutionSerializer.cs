@@ -20,7 +20,7 @@ namespace Nuke.Common.ProjectModel
         public static T DeserializeFromFile<T>(string solutionFile)
             where T : Solution, new()
         {
-            return DeserializeFromContent<T>(TextTasks.ReadAllLines(solutionFile), solutionFile);
+            return DeserializeFromContent<T>(File.ReadAllLines(solutionFile), solutionFile);
         }
 
         public static T DeserializeFromContent<T>(string[] content, string solutionFile = null)
@@ -30,7 +30,7 @@ namespace Nuke.Common.ProjectModel
 
             var solution = new T
                            {
-                               Path = (AbsolutePath) solutionFile,
+                               Path = (AbsolutePath)solutionFile,
                                Header = content.TakeWhile(x => !x.StartsWith("Project")).ToArray(),
                                Properties = trimmedContent.GetGlobalSection("SolutionProperties", solutionFile),
                                ExtensibilityGlobals = trimmedContent.GetGlobalSection("ExtensibilityGlobals", solutionFile),
@@ -182,7 +182,7 @@ namespace Nuke.Common.ProjectModel
 
             foreach (var project in solution.PrimitiveProjects)
             {
-                var path = (WinRelativePath) project.RelativePath;
+                var path = (WinRelativePath)project.RelativePath;
                 Write($@"Project(""{Format(project.TypeId)}"") = ""{project.Name}"", ""{path}"", ""{Format(project.ProjectId)}""");
                 WriteSection(
                     "ProjectSection(SolutionItems) = preProject",

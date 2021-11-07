@@ -46,13 +46,9 @@
     <Compile Include="..\Nuke.Utilities\IO\RelativePath.cs" LinkBase=".\Linked\IO" />
     <Compile Include="..\Nuke.Utilities\IO\WinRelativePath.cs" LinkBase=".\Linked\IO" />
     <Compile Include="..\Nuke.Utilities\IO\UnixRelativePath.cs" LinkBase=".\Linked\IO" />
-    <Compile Include="..\Nuke.Common\ProjectModel\*.cs" LinkBase=".\Linked\ProjectModel" />
+    <Compile Include="..\Nuke.SolutionModel\*.cs" LinkBase=".\Linked\SolutionModel" />
 <!--    <Compile Include="..\Nuke.Common\Utilities\Collections\*.cs" LinkBase=".\Linked\Utilities" />-->
 <!--    <Compile Include="..\Nuke.Common\Utilities\String.*.cs" LinkBase=".\Linked\Utilities" />-->
-
-    <Compile Remove="..\Nuke.Common\ProjectModel\SolutionAttribute.cs" LinkBase=".\Linked\ProjectModel" />
-    <Compile Remove="..\Nuke.Common\ProjectModel\ProjectExtensions.cs" LinkBase=".\Linked\ProjectModel" />
-    <Compile Remove="..\Nuke.Common\ProjectModel\ProjectModelTasks.cs" LinkBase=".\Linked\ProjectModel" />
   </ItemGroup>
 
 </Project>
