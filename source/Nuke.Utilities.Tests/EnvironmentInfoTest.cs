@@ -24,7 +24,7 @@ namespace Nuke.Common.Tests
         [InlineData("\\\\ \\ \\\\", new[] { "\\\\", "\\", "\\\\" })]
         public void TestParseCommandLineArguments(string commandLine, string[] expected)
         {
-            var arguments = EnvironmentInfo.ParseCommandLineArguments(commandLine);
+            var arguments = EnvironmentInfo.ParseArguments(commandLine);
 
             arguments.Should().BeEquivalentTo(expected);
         }

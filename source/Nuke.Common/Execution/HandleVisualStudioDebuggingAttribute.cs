@@ -62,7 +62,7 @@ namespace Nuke.Common.Execution
                 return null;
             }
 
-            var splittedArguments = EnvironmentInfo.ParseCommandLineArguments(argumentLines.Single());
+            var splittedArguments = EnvironmentInfo.ParseArguments(argumentLines.Single());
             return new[] { entryAssemblyLocation }.Concat(splittedArguments).ToArray();
         }
     }

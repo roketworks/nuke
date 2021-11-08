@@ -19,17 +19,28 @@ namespace Nuke.Common
     public static partial class EnvironmentInfo
     {
         public static IReadOnlyDictionary<string, string> Variables
-            => Environment.GetEnvironmentVariables().ToGeneric<string, string>(StringComparer.CurrentCulture);
+            => Environment.GetEnvironmentVariables().ToGeneric<string, string>(StringComparer.CurrentCulture).AsReadOnly();
 
         public static void SetVariable(string name, string value)
         {
             Environment.SetEnvironmentVariable(name, value);
         }
 
+        public static void RemoveVariable(string name)
+        {
+            SetVariable(name, value: null);
+        }
+
+        [CanBeNull]
+        public static string GetVariable(string name)
+        {
+            return Environment.GetEnvironmentVariable(name);
+        }
+
         [CanBeNull]
         public static T GetVariable<T>(string name)
         {
-            return ReflectionUtility.Convert<T>(Environment.GetEnvironmentVariable(name));
+            return ReflectionUtility.Convert<T>(GetVariable(name));
         }
 
         public static string ExpandVariables(string value)
