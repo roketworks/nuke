@@ -141,49 +141,49 @@ namespace Nuke.Common.IO
             File.Delete(file);
         }
 
-        public static void CopyFile(string source, string target, FileExistsPolicy policy = FileExistsPolicy.Fail, bool createDirectories = true)
+        public static void CopyFile(string source, string destination, FileExistsPolicy policy = FileExistsPolicy.Fail, bool createDirectories = true)
         {
-            if (!ShouldCopyFile(source, target, policy))
+            if (!ShouldCopyFile(source, destination, policy))
                 return;
 
             if (createDirectories)
-                EnsureExistingParentDirectory(target);
+                EnsureExistingParentDirectory(destination);
 
-            Log.Information("Copying file {Source} to {Target}...", source, target);
-            File.Copy(source, target, overwrite: true);
+            Log.Information("Copying file {Source} to {Destination}...", source, destination);
+            File.Copy(source, destination, overwrite: true);
         }
 
         public static void CopyFileToDirectory(
             string source,
-            string targetDirectory,
+            string destination,
             FileExistsPolicy policy = FileExistsPolicy.Fail,
             bool createDirectories = true)
         {
-            CopyFile(source, Path.Combine(targetDirectory, Path.GetFileName(source).NotNull()), policy, createDirectories);
+            CopyFile(source, Path.Combine(destination, Path.GetFileName(source).NotNull()), policy, createDirectories);
         }
 
-        public static void MoveFile(string source, string target, FileExistsPolicy policy = FileExistsPolicy.Fail, bool createDirectories = true)
+        public static void MoveFile(string source, string destination, FileExistsPolicy policy = FileExistsPolicy.Fail, bool createDirectories = true)
         {
-            if (!ShouldCopyFile(source, target, policy))
+            if (!ShouldCopyFile(source, destination, policy))
                 return;
 
             if (createDirectories)
-                EnsureExistingParentDirectory(target);
+                EnsureExistingParentDirectory(destination);
 
-            Log.Information("Moving file from {Source} to {Target}...", source, target);
-            if (File.Exists(target))
-                File.Delete(target);
+            Log.Information("Moving file from {Source} to {Destination}...", source, destination);
+            if (File.Exists(destination))
+                File.Delete(destination);
 
-            File.Move(source, target);
+            File.Move(source, destination);
         }
 
         public static void MoveFileToDirectory(
             string source,
-            string targetDirectory,
+            string destination,
             FileExistsPolicy policy = FileExistsPolicy.Fail,
             bool createDirectories = true)
         {
-            MoveFile(source, Path.Combine(targetDirectory, Path.GetFileName(source).NotNull()), policy, createDirectories);
+            MoveFile(source, Path.Combine(destination, Path.GetFileName(source).NotNull()), policy, createDirectories);
         }
 
         public static void RenameFile(string file, string newName, FileExistsPolicy policy = FileExistsPolicy.Fail)
@@ -196,21 +196,21 @@ namespace Nuke.Common.IO
 
         public static void MoveDirectory(
             string source,
-            string target,
+            string destination,
             DirectoryExistsPolicy directoryPolicy = DirectoryExistsPolicy.Fail,
             FileExistsPolicy filePolicy = FileExistsPolicy.Fail,
             bool deleteRemainingFiles = false)
         {
-            Assert.True(!Directory.Exists(target) || directoryPolicy != DirectoryExistsPolicy.Fail);
-            Log.Information("Moving directory from {Source} to {Target}...", source, target);
-            if (!Directory.Exists(target))
+            Assert.True(!Directory.Exists(destination) || directoryPolicy != DirectoryExistsPolicy.Fail);
+            Log.Information("Moving directory from {Source} to {Destination}...", source, destination);
+            if (!Directory.Exists(destination))
             {
-                Directory.Move(source, target);
+                Directory.Move(source, destination);
             }
             else
             {
-                Directory.GetDirectories(source).ForEach(x => MoveDirectoryToDirectory(x, target, directoryPolicy, filePolicy));
-                Directory.GetFiles(source).ForEach(x => MoveFileToDirectory(x, target, filePolicy));
+                Directory.GetDirectories(source).ForEach(x => MoveDirectoryToDirectory(x, destination, directoryPolicy, filePolicy));
+                Directory.GetFiles(source).ForEach(x => MoveFileToDirectory(x, destination, filePolicy));
 
                 if (!new DirectoryInfo(source).EnumerateFileSystemInfos().Any() || deleteRemainingFiles)
                     DeleteDirectoryInternal(source);
@@ -219,11 +219,11 @@ namespace Nuke.Common.IO
 
         public static void MoveDirectoryToDirectory(
             string source,
-            string targetDirectory,
+            string destination,
             DirectoryExistsPolicy directoryPolicy = DirectoryExistsPolicy.Fail,
             FileExistsPolicy filePolicy = FileExistsPolicy.Fail)
         {
-            MoveDirectory(source, Path.Combine(targetDirectory, new DirectoryInfo(source).Name), directoryPolicy, filePolicy);
+            MoveDirectory(source, Path.Combine(destination, new DirectoryInfo(source).Name), directoryPolicy, filePolicy);
         }
 
         public static void RenameDirectory(
@@ -237,24 +237,24 @@ namespace Nuke.Common.IO
 
         public static void CopyDirectoryRecursively(
             string source,
-            string target,
+            string destination,
             DirectoryExistsPolicy directoryPolicy = DirectoryExistsPolicy.Fail,
             FileExistsPolicy filePolicy = FileExistsPolicy.Fail,
             Func<DirectoryInfo, bool> excludeDirectory = null,
             Func<FileInfo, bool> excludeFile = null)
         {
             Assert.DirectoryExists(source);
-            Assert.False(PathConstruction.IsDescendantPath(source, target),
-                $"Target directory '{target}' must not be in source directory '{source}'");
+            Assert.False(PathConstruction.IsDescendantPath(source, destination),
+                $"Destination directory '{destination}' must not be in source directory '{source}'");
             //ControlFlow.Assert(!Contains(source, target), $"Target '{target}' is not contained in source '{source}'.");
 
-            Log.Information("Recursively copying from {Source} to {Target}...", source, target);
-            CopyRecursivelyInternal(source, target, directoryPolicy, filePolicy, excludeDirectory, excludeFile);
+            Log.Information("Recursively copying from {Source} to {Destination}...", source, destination);
+            CopyRecursivelyInternal(source, destination, directoryPolicy, filePolicy, excludeDirectory, excludeFile);
         }
 
         private static void CopyRecursivelyInternal(
             string source,
-            string target,
+            string destination,
             DirectoryExistsPolicy directoryPolicy,
             FileExistsPolicy filePolicy,
             [CanBeNull] Func<DirectoryInfo, bool> excludeDirectory,
@@ -263,23 +263,23 @@ namespace Nuke.Common.IO
             if (excludeDirectory != null && excludeDirectory(new DirectoryInfo(source)))
                 return;
 
-            Assert.True(!Directory.Exists(target) || directoryPolicy != DirectoryExistsPolicy.Fail);
+            Assert.True(!Directory.Exists(destination) || directoryPolicy != DirectoryExistsPolicy.Fail);
 
             string GetDestinationPath(string path)
-                => Path.Combine(target, PathConstruction.GetRelativePath(source, path));
+                => Path.Combine(destination, PathConstruction.GetRelativePath(source, path));
 
-            Directory.CreateDirectory(target);
+            Directory.CreateDirectory(destination);
             foreach (var sourceFile in Directory.GetFiles(source))
             {
                 if (excludeFile != null && excludeFile(new FileInfo(sourceFile)))
                     continue;
 
-                var targetFile = GetDestinationPath(sourceFile);
-                if (!ShouldCopyFile(sourceFile, targetFile, filePolicy))
+                var destinationFile = GetDestinationPath(sourceFile);
+                if (!ShouldCopyFile(sourceFile, destinationFile, filePolicy))
                     continue;
 
                 //EnsureFileAttributes(sourceFile);
-                File.Copy(sourceFile, targetFile, overwrite: true);
+                File.Copy(sourceFile, destinationFile, overwrite: true);
             }
 
             Directory.GetDirectories(source)
@@ -292,17 +292,17 @@ namespace Nuke.Common.IO
                     excludeFile));
         }
 
-        private static bool ShouldCopyFile(string sourceFile, string targetFile, FileExistsPolicy policy)
+        private static bool ShouldCopyFile(string source, string destination, FileExistsPolicy policy)
         {
-            if (!File.Exists(targetFile))
+            if (!File.Exists(destination))
                 return true;
 
             return policy switch
             {
-                FileExistsPolicy.Fail => throw new Exception($"File '{targetFile}' already exists."),
+                FileExistsPolicy.Fail => throw new Exception($"File '{destination}' already exists."),
                 FileExistsPolicy.Skip => false,
                 FileExistsPolicy.Overwrite => true,
-                FileExistsPolicy.OverwriteIfNewer => File.GetLastWriteTimeUtc(targetFile) < File.GetLastWriteTimeUtc(sourceFile),
+                FileExistsPolicy.OverwriteIfNewer => File.GetLastWriteTimeUtc(destination) < File.GetLastWriteTimeUtc(source),
                 _ => throw new ArgumentOutOfRangeException(nameof(policy), policy, message: null)
             };
         }

@@ -66,7 +66,7 @@ partial class Build
             {
                 CopyFile(
                     source: RootDirectory / $"{Solution.FileName}.DotSettings",
-                    target: RootDirectory / $"{global.FileName}.DotSettings",
+                    destination: RootDirectory / $"{global.FileName}.DotSettings",
                     FileExistsPolicy.Overwrite);
             }
 
@@ -74,7 +74,7 @@ partial class Build
             {
                 CopyFile(
                     source: RootDirectory / $"{Solution.FileName}.DotSettings.user",
-                    target: RootDirectory / $"{global.FileName}.DotSettings.user",
+                    destination: RootDirectory / $"{global.FileName}.DotSettings.user",
                     FileExistsPolicy.Overwrite);
             }
         });
