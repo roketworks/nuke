@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [vNext]
+- Fixed `Update` command to use `net6.0`
+- Fixed handling of common errors
+- Fixed log file pattern to use `-` instead of `:`
+- Fixed padding of target names in logging
+- Fixed concurrent writing of shell-completion files
+- Fixed assertion messages to only include argument expression when message is `null`
+- Fixed resolution of member from parameters file
+- Fixed reporting exceptions in summary when not thrown from targets
+- Fixed naming for .NET SDK in bootstrapping scripts
+- Fixed `FileSystemTasks` to use `Destination` instead of `Target` for logging
+- Fixed GitHub Actions to use `GITHUB_TOKEN` instead of `GITHUB_CONTEXT`
+- Fixed GitHub Actions assertion messages
+- Fixed missing output types for `ReportGeneratorTasks`
+- Fixed missing arguments for `HelmTasks`
+- Fixed missing arguments for `SonarScannerTasks`
+- Fixed missing command for `KubernetesTasks`
 
 ## [6.0.1] / 2022-01-10
 - Fixed invisible output for `SystemConsoleHostTheme`
